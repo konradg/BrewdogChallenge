@@ -9,6 +9,7 @@ This is a demo app written in a couple of hours, demonstrating the use of Punk A
 - Image loading via Glide
 - Local HTTP cache
 - Dependency Injection via Hilt
+- JSON serialization with kotlinx.serialization
 - View states for loading/error
 - Repository pattern for accessing data
 - Interactors to separate business use case from implementation details
