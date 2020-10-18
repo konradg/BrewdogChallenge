@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="labelText" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="titleText" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:padding">8dp</item>
+    </style>
+</resources>

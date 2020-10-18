@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.gorskisolutions.brewdogchallenge.beer.details.BeerDetailsIntent
 import com.gorskisolutions.brewdogchallenge.databinding.ActivityBeerListBinding
 import com.gorskisolutions.brewdogchallenge.ui.SpacesItemDecoration
 import com.gorskisolutions.brewdogchallenge.ui.dp
@@ -26,7 +27,10 @@ class BeerListActivity : AppCompatActivity() {
         setContentView(binding.root)
         setUpList()
 
-        viewModel.beers.observe(this) { list -> adapter.list = list }
+        viewModel.screenState.observe(this) { list -> adapter.list = list }
+        adapter.positionClicks.subscribe {
+            startActivity(BeerDetailsIntent(this, it))
+        }
     }
 
     private fun setUpList() {

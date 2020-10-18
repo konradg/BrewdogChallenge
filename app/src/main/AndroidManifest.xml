@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name="com.gorskisolutions.brewdogchallenge.beer.list.BeerListActivity">
+        <activity android:name=".beer.details.BeerDetailsActivity" />
+        <activity android:name=".beer.list.BeerListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,4 +21,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

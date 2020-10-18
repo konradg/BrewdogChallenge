@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <size android:width="120dp" android:height="80dp" />
+            <solid android:color="@color/cardview_dark_background" />
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/ic_beer"
+        android:gravity="center" />
+</layer-list>

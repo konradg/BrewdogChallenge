@@ -13,12 +13,12 @@ class ListViewModel @Inject constructor(
     private val appSchedulers: AppSchedulers
 ) : ViewModel() {
 
-    private val _beers = LiveDataReactiveStreams.fromPublisher(getBeers())
-    val beers: LiveData<List<Beer>> = _beers
+    private val _screenState = LiveDataReactiveStreams.fromPublisher(getBeers())
+    val screenState: LiveData<List<Beer>> = _screenState
 
     private fun getBeers(): Publisher<List<Beer>> =
         getBeersInteractor.getBeers()
             .subscribeOn(appSchedulers.processing)
             .observeOn(appSchedulers.main)
-            .toFlowable()
+            .onErrorReturnItem(emptyList()) // TODO use different screen state
 }
