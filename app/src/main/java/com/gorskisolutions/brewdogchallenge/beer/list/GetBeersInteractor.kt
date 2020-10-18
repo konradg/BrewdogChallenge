@@ -1,4 +1,4 @@
-package com.gorskisolutions.brewdogchallenge.list
+package com.gorskisolutions.brewdogchallenge.beer.list
 
 import com.gorskisolutions.brewdogchallenge.beer.Beer
 import com.gorskisolutions.brewdogchallenge.beer.BeerRepository

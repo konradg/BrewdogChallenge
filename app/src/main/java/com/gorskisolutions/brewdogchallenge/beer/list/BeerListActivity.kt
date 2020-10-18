@@ -1,4 +1,4 @@
-package com.gorskisolutions.brewdogchallenge.list
+package com.gorskisolutions.brewdogchallenge.beer.list
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

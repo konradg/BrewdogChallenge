@@ -1,4 +1,4 @@
-package com.gorskisolutions.brewdogchallenge.list
+package com.gorskisolutions.brewdogchallenge.beer.list
 
 import android.view.LayoutInflater
 import android.view.View

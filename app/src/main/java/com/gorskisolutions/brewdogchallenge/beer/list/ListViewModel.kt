@@ -1,12 +1,10 @@
-package com.gorskisolutions.brewdogchallenge.list
+package com.gorskisolutions.brewdogchallenge.beer.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
 import com.gorskisolutions.brewdogchallenge.AppSchedulers
 import com.gorskisolutions.brewdogchallenge.beer.Beer
-import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Single
 import org.reactivestreams.Publisher
 import javax.inject.Inject
 
