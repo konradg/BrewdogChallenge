@@ -31,7 +31,7 @@ object HttpModule {
 
     @Provides
     fun provideOkHttpClient(cache: Cache): OkHttpClient = OkHttpClient.Builder()
-        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE))
         .addNetworkInterceptor(CacheInterceptor(CACHE_TTL_SECONDS))
         .cache(cache)
         .build()
