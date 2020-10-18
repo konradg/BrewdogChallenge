@@ -1,9 +1,8 @@
 package com.gorskisolutions.brewdogchallenge.beer.list
 
-import com.gorskisolutions.brewdogchallenge.beer.Beer
+import com.gorskisolutions.brewdogchallenge.domain.Beer
 import com.gorskisolutions.brewdogchallenge.beer.BeerRepository
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class GetBeersInteractor @Inject constructor(

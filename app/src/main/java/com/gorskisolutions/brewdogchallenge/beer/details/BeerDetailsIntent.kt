@@ -2,14 +2,15 @@ package com.gorskisolutions.brewdogchallenge.beer.details
 
 import android.content.Context
 import android.content.Intent
+import java.lang.IllegalStateException
 
 class BeerDetailsIntent : Intent {
-    var beerId: String?
+    var beerId: String
         set(value) {
             putExtra(KEY_BEER_ID, value)
         }
         get() {
-            return getStringExtra(KEY_BEER_ID)
+            return getStringExtra(KEY_BEER_ID) ?: throw IllegalStateException("No beer ID provided")
         }
 
     constructor(context: Context, beerId: String) : super(

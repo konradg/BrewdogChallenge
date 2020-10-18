@@ -1,13 +1,16 @@
 package com.gorskisolutions.brewdogchallenge.beer
 
+import com.gorskisolutions.brewdogchallenge.domain.Beer
 import io.reactivex.rxjava3.core.Flowable
 import javax.inject.Inject
+import javax.inject.Singleton
 
 interface BeerRepository {
     fun getBeers(): Flowable<List<Beer>>
     fun getBeer(id: String): Flowable<Beer>
 }
 
+@Singleton
 class BeerRepositoryImpl @Inject constructor(
     private val beerService: BeerService
 ) : BeerRepository {

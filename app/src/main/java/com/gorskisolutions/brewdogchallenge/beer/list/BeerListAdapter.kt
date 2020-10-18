@@ -1,15 +1,15 @@
 package com.gorskisolutions.brewdogchallenge.beer.list
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gorskisolutions.brewdogchallenge.R
-import com.gorskisolutions.brewdogchallenge.beer.Beer
+import com.gorskisolutions.brewdogchallenge.domain.Beer
 import com.gorskisolutions.brewdogchallenge.databinding.ItemBeerBinding
+import com.gorskisolutions.brewdogchallenge.util.BrewdogGlideModule
+import com.gorskisolutions.brewdogchallenge.util.GlideApp
 import io.reactivex.rxjava3.core.BackpressureStrategy
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.subjects.PublishSubject
@@ -36,7 +36,7 @@ class BeerListAdapter : RecyclerView.Adapter<BeerViewHolder>() {
         holder.binding.beerName.text = item.name
         holder.binding.beerAbv.text =
             holder.binding.beerAbv.resources.getString(R.string.abv_format, item.abv)
-        Glide.with(holder.binding.beerLabel)
+        GlideApp.with(holder.binding.beerLabel)
             .load(item.imageUrl)
             .placeholder(R.drawable.image_placeholder)
             .into(holder.binding.beerLabel)

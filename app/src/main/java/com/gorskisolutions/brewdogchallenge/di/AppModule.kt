@@ -1,5 +1,6 @@
 package com.gorskisolutions.brewdogchallenge.di
 
+import com.bumptech.glide.module.AppGlideModule
 import com.gorskisolutions.brewdogchallenge.AppSchedulers
 import com.gorskisolutions.brewdogchallenge.AppSchedulersImpl
 import dagger.Module

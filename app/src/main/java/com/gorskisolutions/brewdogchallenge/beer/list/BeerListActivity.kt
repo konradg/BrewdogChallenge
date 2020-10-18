@@ -1,20 +1,19 @@
 package com.gorskisolutions.brewdogchallenge.beer.list
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.gorskisolutions.brewdogchallenge.beer.Beer
 import com.gorskisolutions.brewdogchallenge.beer.details.BeerDetailsIntent
 import com.gorskisolutions.brewdogchallenge.databinding.ActivityBeerListBinding
+import com.gorskisolutions.brewdogchallenge.domain.Beer
 import com.gorskisolutions.brewdogchallenge.ui.*
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class BeerListActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var viewModel: ListViewModel
+    private val viewModel: ListViewModel by viewModels()
 
     private lateinit var binding: ActivityBeerListBinding
     private lateinit var beerListAdapter: BeerListAdapter
