@@ -7,5 +7,6 @@ import kotlinx.serialization.Serializable
 data class Beer(
     val id: String,
     @SerialName("image_url") val imageUrl: String,
-    val name: String
+    val name: String,
+    val abv: Float
 )
