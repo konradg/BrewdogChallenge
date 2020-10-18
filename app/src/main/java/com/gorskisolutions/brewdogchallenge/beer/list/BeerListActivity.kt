@@ -3,7 +3,7 @@ package com.gorskisolutions.brewdogchallenge.beer.list
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.gorskisolutions.brewdogchallenge.beer.details.BeerDetailsIntent
 import com.gorskisolutions.brewdogchallenge.databinding.ActivityBeerListBinding
 import com.gorskisolutions.brewdogchallenge.domain.Beer
@@ -66,7 +66,7 @@ class BeerListActivity : AppCompatActivity() {
         beerListAdapter = BeerListAdapter()
         binding.list.run {
             setHasFixedSize(true)
-            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            layoutManager = GridLayoutManager(this@BeerListActivity, 2)
             adapter = beerListAdapter
             addItemDecoration(SpacesItemDecoration(8.dp))
         }
