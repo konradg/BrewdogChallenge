@@ -1,6 +1,7 @@
 package com.gorskisolutions.brewdogchallenge.beer.details
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -24,7 +25,8 @@ class BeerDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val intent = BeerDetailsIntent(intent)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_beer_details)
+        binding = ActivityBeerDetailsBinding.inflate(LayoutInflater.from(this))
+        setContentView(binding.root)
         binding.viewModel = viewModel
 
         // TODO replace with proper MaterialToolbar
@@ -32,16 +34,17 @@ class BeerDetailsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back)
 
-        viewModel.getBeerDetails(intent.beerId)
+        setUpViewPager()
         viewModel.beer.observe(this) { beer ->
             binding.beerDetailsContent.show()
             title = beer.name
             GlideApp.with(this)
                 .load(beer.imageUrl)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .placeholder(R.drawable.ic_beer)
                 .into(binding.beerDetailsImage)
 
+            binding.beerDetailsAbv.text = resources.getString(R.string.abv_format, beer.abv)
+            binding.beerDetailsDescription.text = beer.description
             binding.loading.hide()
             binding.error.hide()
         }
@@ -59,11 +62,12 @@ class BeerDetailsActivity : AppCompatActivity() {
                 error.show()
             }
         }
-        setUpViewPager()
+        viewModel.getBeerDetails(intent.beerId)
     }
 
     private fun setUpViewPager() {
         binding.beerDetalsViewPager.adapter = FeaturesAdapter(supportFragmentManager, lifecycle)
+        binding.beerDetalsViewPager.offscreenPageLimit = 2
         TabLayoutMediator(binding.beerDetailsTabs, binding.beerDetalsViewPager) { tab, position ->
             tab.text = resources.getStringArray(R.array.beer_features)[position]
         }.attach()

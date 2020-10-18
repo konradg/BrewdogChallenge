@@ -14,7 +14,6 @@ import com.gorskisolutions.brewdogchallenge.beer.details.features.HopAdapter
 import com.gorskisolutions.brewdogchallenge.beer.details.features.MaltAdapter
 import com.gorskisolutions.brewdogchallenge.domain.Beer
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.IllegalArgumentException
 
 @AndroidEntryPoint
 class FeatureFragment : Fragment() {
@@ -40,21 +39,29 @@ class FeatureFragment : Fragment() {
         arguments?.takeIf { it.containsKey(ARG_TYPE) }?.apply {
             val recyclerView: RecyclerView = view as RecyclerView
             val type = getInt(ARG_TYPE)
+            recyclerView.adapter = provideAdapter(type)
             detailsViewModel.beer.observe(viewLifecycleOwner) { beer ->
-                recyclerView.adapter = provideAdapter(beer, type)
+                submitBeer(beer, type, recyclerView)
             }
         }
     }
 
-    private fun provideAdapter(
-        beer: Beer,
-        type: Int
-    ): RecyclerView.Adapter<out RecyclerView.ViewHolder> = when (type) {
-        TYPE_HOPS -> HopAdapter(beer)
-        TYPE_MALTS -> MaltAdapter(beer)
-        TYPE_METHODS -> BrewMethodAdapter(beer)
-        else -> throw IllegalArgumentException("Beer feature type must be one of TYPE_HOPS, TYPE_MALTS, TYPE_METHODS")
+    private fun submitBeer(beer: Beer, type: Int, recyclerView: RecyclerView) {
+        val adapter = recyclerView.adapter
+        when (type) {
+            TYPE_HOPS -> (adapter as HopAdapter).submitList(beer.ingredients.hops)
+            TYPE_MALTS -> (adapter as MaltAdapter).submitList(beer.ingredients.malt)
+            TYPE_METHODS -> (adapter as BrewMethodAdapter).acceptBeer(beer)
+        }
     }
+
+    private fun provideAdapter(type: Int): RecyclerView.Adapter<out RecyclerView.ViewHolder> =
+        when (type) {
+            TYPE_HOPS -> HopAdapter()
+            TYPE_MALTS -> MaltAdapter()
+            TYPE_METHODS -> BrewMethodAdapter()
+            else -> throw IllegalArgumentException("Beer feature type must be one of TYPE_HOPS, TYPE_MALTS, TYPE_METHODS")
+        }
 
     companion object {
         const val ARG_TYPE = "ARG_TYPE"

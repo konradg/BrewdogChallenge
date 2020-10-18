@@ -7,14 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gorskisolutions.brewdogchallenge.R
-import com.gorskisolutions.brewdogchallenge.domain.Beer
 import com.gorskisolutions.brewdogchallenge.domain.Hop
 
-class HopAdapter(beer: Beer) : ListAdapter<Hop, HopViewHolder>(HopItemDiffCallback()) {
-
-    init {
-        submitList(beer.ingredients.hops)
-    }
+class HopAdapter : ListAdapter<Hop, HopViewHolder>(HopItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): HopViewHolder {
         return HopViewHolder(
@@ -30,7 +25,13 @@ class HopAdapter(beer: Beer) : ListAdapter<Hop, HopViewHolder>(HopItemDiffCallba
 
 class HopViewHolder(private val view: TextView) : RecyclerView.ViewHolder(view) {
     fun bindTo(hop: Hop) {
-        view.text = view.resources.getString(R.string.hop_format, hop.name, hop.amount, hop.add, hop.attribute)
+        view.text = view.resources.getString(
+            R.string.hop_format,
+            hop.name,
+            hop.amount,
+            hop.add,
+            hop.attribute
+        )
     }
 }
 

@@ -20,11 +20,11 @@ class DetailsViewModel @ViewModelInject constructor(
     private val _beer = MutableLiveData<Beer>()
     val beer: LiveData<Beer> = _beer
 
-    private val _error = MutableLiveData<Boolean>()
-    val error: LiveData<Boolean> = _error
+    private val _error = MutableLiveData<Any>()
+    val error: LiveData<Any> = _error
 
-    private val _loading = MutableLiveData<Boolean>()
-    val loading: LiveData<Boolean> = _loading
+    private val _loading = MutableLiveData<Any>()
+    val loading: LiveData<Any> = _loading
 
     override fun onCleared() {
         super.onCleared()
@@ -49,13 +49,13 @@ class DetailsViewModel @ViewModelInject constructor(
     private fun handleEvent(screenState: ScreenState) {
         when (screenState) {
             is ScreenState.Success<*> -> {
-                _beer.value = screenState.content as Beer
+                _beer.postValue(screenState.content as Beer)
             }
             is ScreenState.Error -> {
-                _error.value = true
+                _error.postValue(Any())
             }
             is ScreenState.Loading -> {
-                _loading.value = true
+                _loading.postValue(Any())
             }
         }
     }

@@ -7,14 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gorskisolutions.brewdogchallenge.R
-import com.gorskisolutions.brewdogchallenge.domain.Beer
 import com.gorskisolutions.brewdogchallenge.domain.Malt
 
-class MaltAdapter(beer: Beer) : ListAdapter<Malt, MaltViewHolder>(MaltItemDiffCallback()) {
-
-    init {
-        submitList(beer.ingredients.malt)
-    }
+class MaltAdapter : ListAdapter<Malt, MaltViewHolder>(MaltItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): MaltViewHolder {
         return MaltViewHolder(
