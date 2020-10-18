@@ -1,12 +1,10 @@
 package com.gorskisolutions.brewdogchallenge.beer.details
 
-import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gorskisolutions.brewdogchallenge.AppSchedulers
+import com.gorskisolutions.brewdogchallenge.util.AppSchedulers
 import com.gorskisolutions.brewdogchallenge.domain.Beer
 import com.gorskisolutions.brewdogchallenge.ui.ScreenState
 import io.reactivex.rxjava3.core.Flowable

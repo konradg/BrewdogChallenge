@@ -1,4 +1,4 @@
-package com.gorskisolutions.brewdogchallenge
+package com.gorskisolutions.brewdogchallenge.util
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Scheduler

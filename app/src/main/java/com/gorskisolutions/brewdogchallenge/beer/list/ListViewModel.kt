@@ -4,7 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
-import com.gorskisolutions.brewdogchallenge.AppSchedulers
+import com.gorskisolutions.brewdogchallenge.util.AppSchedulers
 import com.gorskisolutions.brewdogchallenge.ui.ScreenState
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
