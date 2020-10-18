@@ -4,4 +4,9 @@
     <string name="content_description_beer_image">Beer label</string>
     <string name="beer_list_error">Could not load beer list</string>
     <string name="beer_list_loading">Loading beers…</string>
+    <string-array name="beer_features">
+        <item>Malts</item>
+        <item>Hops</item>
+        <item>Methods</item>
+    </string-array>
 </resources>

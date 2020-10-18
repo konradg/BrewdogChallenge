@@ -16,8 +16,8 @@ class DetailsViewModel @ViewModelInject constructor(
     private val appSchedulers: AppSchedulers
 ): ViewModel() {
 
-    private val _beer = MutableLiveData<Beer?>()
-    val beer: LiveData<Beer?> = _beer
+    private val _beer = MutableLiveData<Beer>()
+    val beer: LiveData<Beer> = _beer
 
     private val _error = MutableLiveData<Boolean>()
     val error: LiveData<Boolean> = _error
@@ -46,12 +46,10 @@ class DetailsViewModel @ViewModelInject constructor(
                 _loading.value = false
             }
             is ScreenState.Error -> {
-                _beer.value = null
                 _error.value = true
                 _loading.value = false
             }
             is ScreenState.Loading -> {
-                _beer.value = null
                 _error.value = false
                 _loading.value = true
             }
