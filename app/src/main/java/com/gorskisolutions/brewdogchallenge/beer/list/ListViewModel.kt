@@ -5,6 +5,10 @@ import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
 import com.gorskisolutions.brewdogchallenge.AppSchedulers
 import com.gorskisolutions.brewdogchallenge.beer.Beer
+import com.gorskisolutions.brewdogchallenge.ui.ScreenState
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Notification
+import io.reactivex.rxjava3.core.Single
 import org.reactivestreams.Publisher
 import javax.inject.Inject
 
@@ -14,11 +18,19 @@ class ListViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _screenState = LiveDataReactiveStreams.fromPublisher(getBeers())
-    val screenState: LiveData<List<Beer>> = _screenState
+    val screenState: LiveData<ScreenState> = _screenState
 
-    private fun getBeers(): Publisher<List<Beer>> =
+    private fun getBeers(): Publisher<ScreenState> =
         getBeersInteractor.getBeers()
+            .materialize()
+            .flatMap {
+                when  {
+                    it.isOnNext -> Flowable.just(ScreenState.Success(it.value))
+                    it.isOnError -> Flowable.just(ScreenState.Error)
+                    else -> Flowable.empty()
+                }
+            }
             .subscribeOn(appSchedulers.processing)
             .observeOn(appSchedulers.main)
-            .onErrorReturnItem(emptyList()) // TODO use different screen state
+            .startWith(Single.just(ScreenState.Loading))
 }

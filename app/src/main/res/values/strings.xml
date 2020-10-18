@@ -2,4 +2,6 @@
     <string name="app_name">Brewdog Challenge</string>
     <string name="abv_format">ABV: %1$.1f</string>
     <string name="content_description_beer_image">Beer label</string>
+    <string name="beer_list_error">Could not load beer list</string>
+    <string name="beer_list_loading">Loading beers…</string>
 </resources>

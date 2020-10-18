@@ -2,12 +2,11 @@ package com.gorskisolutions.brewdogchallenge.beer.list
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.gorskisolutions.brewdogchallenge.beer.Beer
 import com.gorskisolutions.brewdogchallenge.beer.details.BeerDetailsIntent
 import com.gorskisolutions.brewdogchallenge.databinding.ActivityBeerListBinding
-import com.gorskisolutions.brewdogchallenge.ui.SpacesItemDecoration
-import com.gorskisolutions.brewdogchallenge.ui.dp
+import com.gorskisolutions.brewdogchallenge.ui.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -18,8 +17,7 @@ class BeerListActivity : AppCompatActivity() {
     lateinit var viewModel: ListViewModel
 
     private lateinit var binding: ActivityBeerListBinding
-    private lateinit var list: RecyclerView
-    private lateinit var adapter: BeerListAdapter
+    private lateinit var beerListAdapter: BeerListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,18 +25,51 @@ class BeerListActivity : AppCompatActivity() {
         setContentView(binding.root)
         setUpList()
 
-        viewModel.screenState.observe(this) { list -> adapter.list = list }
-        adapter.positionClicks.subscribe {
+        viewModel.screenState.observe(this, ::screenStateObserver)
+        beerListAdapter.positionClicks.subscribe {
             startActivity(BeerDetailsIntent(this, it))
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
+    private fun screenStateObserver(screenState: ScreenState) = when (screenState) {
+        is ScreenState.Success<*> -> showItems(screenState.content as List<Beer>)
+        is ScreenState.Loading -> showLoading()
+        else -> showError()
+    }
+
+    private fun showError() {
+        binding.run {
+            list.hide()
+            error.show()
+            loading.hide()
+        }
+    }
+
+    private fun showLoading() {
+        binding.run {
+            list.hide()
+            error.hide()
+            loading.show()
+        }
+    }
+
+    private fun showItems(content: List<Beer>) {
+        beerListAdapter.list = content
+        binding.run {
+            list.show()
+            error.hide()
+            loading.hide()
+        }
+    }
+
     private fun setUpList() {
-        adapter = BeerListAdapter()
-        list = binding.list
-        list.setHasFixedSize(true)
-        list.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        list.adapter = adapter
-        list.addItemDecoration(SpacesItemDecoration(8.dp))
+        beerListAdapter = BeerListAdapter()
+        binding.list.run {
+            setHasFixedSize(true)
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            adapter = beerListAdapter
+            addItemDecoration(SpacesItemDecoration(8.dp))
+        }
     }
 }
