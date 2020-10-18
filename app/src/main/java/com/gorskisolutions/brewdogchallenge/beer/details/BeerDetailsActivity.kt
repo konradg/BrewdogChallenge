@@ -1,11 +1,9 @@
 package com.gorskisolutions.brewdogchallenge.beer.details
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.tabs.TabLayoutMediator
 import com.gorskisolutions.brewdogchallenge.R
@@ -42,7 +40,7 @@ class BeerDetailsActivity : AppCompatActivity() {
                 .load(beer.imageUrl)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.ic_beer)
-                .into(binding.imageView)
+                .into(binding.beerDetailsImage)
 
             binding.loading.hide()
             binding.error.hide()

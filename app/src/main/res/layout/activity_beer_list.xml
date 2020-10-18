@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="@string/beer_list_loading"
+        android:text="@string/beers_loading"
         android:visibility="gone"
         tools:visibility="visible" />
 

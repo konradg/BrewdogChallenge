@@ -10,11 +10,14 @@ import com.gorskisolutions.brewdogchallenge.AppSchedulers
 import com.gorskisolutions.brewdogchallenge.domain.Beer
 import com.gorskisolutions.brewdogchallenge.ui.ScreenState
 import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.disposables.Disposable
 
 class DetailsViewModel @ViewModelInject constructor(
     private val getBeerDetailsInteractor: GetBeerDetailsInteractor,
     private val appSchedulers: AppSchedulers
 ): ViewModel() {
+
+    private var disposable: Disposable? = null
 
     private val _beer = MutableLiveData<Beer>()
     val beer: LiveData<Beer> = _beer
@@ -24,6 +27,12 @@ class DetailsViewModel @ViewModelInject constructor(
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable?.dispose()
+        disposable = null
+    }
 
     fun getBeerDetails(id: String) =
         getBeerDetailsInteractor.getBeerDetails(id)
@@ -37,27 +46,24 @@ class DetailsViewModel @ViewModelInject constructor(
             .subscribeOn(appSchedulers.processing)
             .observeOn(appSchedulers.main)
             .subscribe(::handleEvent, ::handleError)
+            .run { disposable = this }
 
     private fun handleEvent(screenState: ScreenState) {
         when (screenState) {
             is ScreenState.Success<*> -> {
                 _beer.value = screenState.content as Beer
-                _error.value = false
-                _loading.value = false
             }
             is ScreenState.Error -> {
                 _error.value = true
-                _loading.value = false
             }
             is ScreenState.Loading -> {
-                _error.value = false
                 _loading.value = true
             }
         }
     }
 
     private fun handleError(throwable: Throwable) {
-        // Should not happen at runtime
+        // Stream processing error, should not happen at runtime
         throwable.printStackTrace()
     }
 }

@@ -1,19 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.gorskisolutions.brewdogchallenge.beer.details.DetailsViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".beer.details.BeerDetailsActivity">
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/beerDetailsContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".beer.details.BeerDetailsActivity">
+
+            <ImageView
+                android:id="@+id/beerDetailsImage"
+                android:layout_width="120dp"
+                android:layout_height="160dp"
+                android:contentDescription="@string/content_description_beer_image"
+                android:padding="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/beerDetailsAbv"
+                style="@style/labelText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@{String.format(@string/abv_format, viewModel.beer.abv)}"
+                app:layout_constraintBottom_toTopOf="@+id/beerDetailsDescription"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/beerDetailsImage"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="ABV: 4.5" />
+
+            <TextView
+                android:id="@+id/beerDetailsDescription"
+                style="@style/labelText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.beer.description}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/beerDetailsImage"
+                app:layout_constraintTop_toBottomOf="@+id/beerDetailsAbv"
+                tools:text="Beer description is very long and thus takes considerable space on the screen. The beer has so many details that the description requires large screen estate, which may cause unexpected consequences when rendering the screen. Lorem ipsum dolor sit." />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/beerDetailsTabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/beerDetalsViewPager"
+                app:layout_constraintTop_toBottomOf="@id/barrier" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/beerDetalsViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/beerDetailsTabs" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="beerDetailsImage, beerDetailsDescription" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/loading"
@@ -21,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/beer_list_loading"
+            android:text="@string/beer_loading"
             android:visibility="gone"
             tools:visibility="visible" />
 
@@ -30,63 +89,14 @@
             style="@style/titleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/beer_list_error"
+            android:text="@string/beer_error"
             android:visibility="gone"
             app:drawableTopCompat="@drawable/ic_error"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:showIn="@layout/activity_beer_list"
             tools:visibility="visible" />
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/beerDetailsContent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:contentDescription="@string/content_description_beer_image"
-                android:padding="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/beerDetailsName"
-                style="@style/titleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="@{viewModel.beer.name}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView"
-                tools:text="Beer name" />
-
-            <TextView
-                android:id="@+id/beerDetailsDescription"
-                style="@style/labelText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.beer.description}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/beerDetailsName"
-                tools:text="Beer description" />
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/beerDetailsTabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/beerDetailsDescription" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/beerDetalsViewPager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/beerDetailsTabs" />
-        </androidx.constraintlayout.widget.Group>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 </layout>

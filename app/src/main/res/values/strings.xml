@@ -3,10 +3,17 @@
     <string name="abv_format">ABV: %1$.1f</string>
     <string name="content_description_beer_image">Beer label</string>
     <string name="beer_list_error">Could not load beer list</string>
-    <string name="beer_list_loading">Loading beers…</string>
+    <string name="beers_loading">Loading beers…</string>
+    <string name="beer_loading">Loading beer details…</string>
+    <string name="malt_format">%1$s (%2$s)</string>
+    <string name="hop_format">%1$s (%2$s)\nAdd at: %3$s\nAttribute: %4$s</string>
+    <string name="mashing_temp_format">Mashing at %1$s</string>
+    <string name="mashing_time_format">for %1$d minutes</string>
+    <string name="fermentation_format">Fermentation at %1$s</string>
+    <string name="beer_error">Could not load beer details</string>
     <string-array name="beer_features">
         <item>Malts</item>
         <item>Hops</item>
-        <item>Methods</item>
+        <item>Params</item>
     </string-array>
 </resources>
